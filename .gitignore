@@ -490,3 +490,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,node,visualstudiocode,pycharm,windows,macos
 *.docx
+
+django_SECRET_KEY.txt
