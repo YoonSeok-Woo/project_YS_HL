@@ -40,7 +40,7 @@ def login(request):
             form = AuthenticationForm()
         
         context={'form':form,}
-        return render(request, 'accounts/login.html',context=context)
+        return render(request, 'user/login.html',context=context)
     else:
         return redirect('community:index')
 
