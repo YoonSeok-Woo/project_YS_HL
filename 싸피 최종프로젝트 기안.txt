@@ -1,0 +1,81 @@
+기술스택
+Django Standalone + JS
+
+프로젝트 스코프
+끝날때까지 열심히 최선을다해서
+
+영화 추천 알고리즘
+-유저취향 기반 추천
+1.장르
+2.평점
+3.나이
+
+API
+TMDB
+
+
+
+요구사항
+관리자뷰
+-admin페이지를 통해 영화 등록/수정/삭제
+-admin권한을 가진 유저만 유저관리 권한 획득
+
+영화정보
+-50개 이상의 데이터 보유
+-모든 로그인 된 유저는 영화에 대한 평점 등록/수정/삭제 가능
+
+추천 알고리즘
+-movie 홈화면에서 랜덤으로 10개를 이미지슬라이드 형태로 보여주는 알고리즘
+-로그인한유저가 영화추천을원할때
+1. 유저들이 등록한 평점 기반 - 평점의 자료가 부족할 경우
+2-1.navbar(장르 19개 넣어서 유저가 직접 그 장르를 누르면 해당 장르만 보이게한다)
+2. 장르기반 - 해당 유저가 좋은 평점을 등록한 영화와 같은 장르 - 평점순(평점이 매겨진 영화의 갯수가 부족한 경우 나머지는 랜덤)
+3. 키워드검색 - 줄거리와 영화제목에서 유사키워드검색
+
+
+git commit name
+" 날짜 + 수정한내용"
+
+
+
+
+User
+
+
+Movie
+
+
+Rating
+-user_id
+-rate
+-movie_id
+
+Community
+-title
+-context
+-created_at
+-updated_at
+-user_id(ForiegnKey)
+
+Comment
+-user_id(foriegnKey)
+-community_id(foriegnKey)
+-context
+-created_at
+-updated_at
+
+
+
+
+
+
+
+네비게이션바
+홈 
+
+
+홈화면 포스터 슬라이드
+후보 1. https://wsss.tistory.com/1587?category=797448
+후보 2. https://wsss.tistory.com/1094?category=797448
+
+
