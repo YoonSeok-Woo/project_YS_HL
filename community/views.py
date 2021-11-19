@@ -38,8 +38,10 @@ def create(request):
 
 def detail(request, commu_pk):
     community = Community.objects.get(pk=commu_pk)
+    comments = Comment.objects.get(community=commu_pk)
     context = {
         'community':community,
+        'comments' :comments,
     }
     return render(request,'community/detail.html',context)
 
