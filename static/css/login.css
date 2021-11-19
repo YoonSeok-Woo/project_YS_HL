@@ -1,0 +1,50 @@
+.main {
+  width: 250px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+
+.login {
+  background-image: url('https://image.tmdb.org/t/p/w500/oE6bhqqVFyIECtBzqIuvh6JdaB5.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* display: flex;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%); */
+}
+
+.logo {
+  margin-top: 0px;
+  margin-bottom: 40px;
+}
+
+#login {
+  width: 100%;
+  background-color: skyblue;
+  border-color: transparent;
+  color: white;
+}
+
+.account {
+  display: block;
+  margin-bottom: 3px;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+#alert {
+  border-color: transparent;
+}

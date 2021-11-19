@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <h2>{{ community.pk }} 번째 글</h2>
+  <p>제목 : {{ community.title }}</p>
+  <p>번호 : {{ community.pk }}</p>
+  <p>작성자 : {{ community.user }}</p>
+  <p>내용 : {{ community.content }}</p>
+  <p>첨부이미지: {{ community.image }}</p>
+  <p>작성시각 : {{ community.created_at }}</p>
+  <p>수정시각 : {{ community.updated_at }}</p>
 
+  <hr>
+  <h4>댓글</h4>
+  {% if comments|length %}
+    <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+  {% endif %}
+  {% for comment in comments %}
+    <div>
+      {{ comment.user }} - {{ comment.content }}
+    </div>
+  {% empty %}
+    <p><b>댓글이 없어요..</b></p>
+  {% endfor %}
+  <hr>
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'community:comment_create' community.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit">
+    </form>
+  {% else %}
+    <a href="{% url 'user:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+  <a href="{% url 'community:index' %}">[back]</a>
 {% endblock content %}
