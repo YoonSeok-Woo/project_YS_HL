@@ -38,7 +38,7 @@ def create(request):
 
 def detail(request, commu_pk):
     community = Community.objects.get(pk=commu_pk)
-    comments = Comment.objects.get(community=commu_pk)
+    comments = Comment.objects.filter(community=commu_pk)
     context = {
         'community':community,
         'comments' :comments,

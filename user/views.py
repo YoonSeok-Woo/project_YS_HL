@@ -25,7 +25,7 @@ def signup(request):
         }
         return render(request,'user/signup.html',context=context)
     else:
-        return redirect('movie:index')
+        return redirect('community:index')
 
 @require_http_methods(['GET','POST'])
 def login(request):
@@ -35,7 +35,7 @@ def login(request):
             if form.is_valid():
                 user = form.get_user()
                 auth_login(request,user)
-                return redirect(request.GET.get('next') or 'movie:index')
+                return redirect(request.GET.get('next') or 'community:index')
         else:
             form = AuthenticationForm()
         

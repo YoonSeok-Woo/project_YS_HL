@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+  <h1>커뮤니티</h1><br>
+  {% for community in communities %}
+    <p>작성자 : {{ community.user }}</p>
+    <p>글 번호 : {{ community.pk }}</p>
+    <p>글 제목 : {{ community.title }}</p>
+    <p>글 내용 : {{ community.content }}</p>
+    <hr>
+    <a href="{% url 'community:detail' community.pk %}">자세히보기</a>
+  {% endfor %}
+    <a href="{% url 'community:create' %}">새 글 작성</a>
 {% endblock content %}
