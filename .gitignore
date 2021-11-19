@@ -492,3 +492,4 @@ $RECYCLE.BIN/
 *.docx
 
 django_SECRET_KEY.txt
+tmdb_api.txt
