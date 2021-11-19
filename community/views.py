@@ -90,7 +90,7 @@ def comment_create(request,commu_pk):
         return redirect('community:detail',community.pk)
     return redirect('user:login')
 
-@require_POST
+@login_required
 def comment_delete(request,commu_pk,comment_pk):
     comment = get_object_or_404(Comment,pk=comment_pk)
     if request.user==comment.user:

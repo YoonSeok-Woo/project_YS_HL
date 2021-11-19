@@ -19,6 +19,9 @@
     <div>
       {{ comment.user }} - {{ comment.content }}
     </div>
+    {% if request.user == comment.user %}
+    <a href="{% url 'community:comment_delete' community.pk comment.pk %}">삭제</a>
+    {% endif %}
   {% empty %}
     <p><b>댓글이 없어요..</b></p>
   {% endfor %}
