@@ -9,6 +9,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     overview = models.TextField()
     poster_path = models.TextField()
+    average_rate = models.FloatField(default=0,blank=True,null=False)
     rate = models.ManyToManyField(settings.AUTH_USER_MODEL,through='Rates',related_name='movies', blank=True)
     genres = models.ManyToManyField(Genre)
 class Rates(models.Model):

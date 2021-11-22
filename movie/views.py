@@ -5,6 +5,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods,require_GET
 from django.contrib.auth.decorators import login_required
 from .models import Movie, Genre, Rates
+from django.db.models import Avg
 
 @require_GET
 def home(request):
@@ -25,9 +26,8 @@ def detail(request,pk):
 @require_POST
 def rating(request,pk):
     user = request.user
-    print(request.POST)
     score = request.POST.get('rates')
-    print(score)
+    
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
         if movie.rate.filter(pk=user.pk).exists():
@@ -41,6 +41,8 @@ def rating(request,pk):
             new_rates.rates=score
             new_rates.movie=movie
             new_rates.save()
+        movie.average_rate=Rates.objects.filter(movie_id=movie).aggregate(Avg('rates'))['rates__avg']
+        movie.save()
         return redirect('movie:detail',pk)
     
     return redirect('user:login')
