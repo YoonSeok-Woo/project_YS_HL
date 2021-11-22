@@ -36,15 +36,15 @@
               <a class="nav-link" href="{% url 'movie:home' %}">영화 목록</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">커뮤니티</a>
+              <a class="nav-link" href="{% url 'community:index' %}">커뮤니티</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 영화추천
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">평점등록</a></li>
-                <li><a class="dropdown-item" href="#">영화추천</a></li>
+                <li><a class="dropdown-item" href="#">장르별 추천</a></li>
+                <li><a class="dropdown-item" href="#">평점별 추천</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">기타</a></li>
               </ul>
