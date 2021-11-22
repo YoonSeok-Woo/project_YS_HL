@@ -7,7 +7,7 @@ from .models import Movie, Genre, Rates
 
 @require_GET
 def home(request):
-    movies = Movie.order_by('?')[:10]
+    movies = Movie.objects.order_by('?')[:10]
     context = {
         'movies':movies
     }
