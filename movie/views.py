@@ -32,11 +32,7 @@ def rating(request,pk):
             movie.rate.rates=score
             movie.save()
         else:
-            new_rates = Rates()
-            new_rates.movie=movie
-            new_rates.user = user
-            new_rates.rates = score
-            new_rates.save()
+            movie.rate.add(user=user,rates=score)
         return redirect('movie:detail',pk)
     
     return redirect('user:login')
