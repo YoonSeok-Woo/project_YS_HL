@@ -45,13 +45,9 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 영화추천
               </a>
-              <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'movie:recommend' %}">장르별 추천</a></li>
-                <li class="dropdown-submenu">
-                  <a tabindex="-1" href="#">장르 검색</a>
-                  <ul class="dropdown-menu">
-                    <li><form action="{% url 'movie:genre_search' genre.genre_name %}">액션</form></li>
-                  </ul>
+                <li><a class="dropdown-item" href="#">장르 검색</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">기타</a></li>
               </ul>
