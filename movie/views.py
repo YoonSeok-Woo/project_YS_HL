@@ -82,5 +82,5 @@ def genre_search(request,genre_name):
     context = {
         'movies':movies
     }
-    return render(request,'movie/home.html',context)
+    return render(request,'movie/genre_search.html',context)
     
