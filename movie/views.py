@@ -55,7 +55,7 @@ def recommend(request):
         if len(movies)>=10:
             genres_count = dict()
             for movie in movies:
-                movie_genres = movie.genres
+                movie_genres = movie.genres.all()
                 for genre in movie_genres:
                     if genres_count[genre.name]:
                         genres_count[genre.name]+=1
@@ -63,7 +63,9 @@ def recommend(request):
                         genres_count[genre.name]=1
             favorite = max(genres_count)
             t_genres = Genre.objects.get(name=favorite)
-            output = Movie.objects.filter(genres=t_genres).order_by('?')[:10]
+            temp = Movie.objects.filter(genres=t_genres).order_by('?')
+            length = min(10, len(temp))
+            output = temp[:length]
             context = {
                 'movie': output
             }
