@@ -1,3 +1,13 @@
+### 데이터베이스 업데이트 하는 방법
+
+```
+python update.py
+python manage.py loaddata genres.json
+python manage.py loaddata movie.json
+```
+
+
+
 네비게이션바 - 2개
 
 상단바

@@ -74,4 +74,13 @@ def recommend(request):
         'movies':movies
     }
     return render(request, 'movie/recommend.html', context)
+
+@require_GET
+def genre_search(request,genre_name):
+    genre = get_object_or_404(Genre,name=genre_name)
+    movies = Movie.objects.filter(genres=genre)
+    context = {
+        'movies':movies
+    }
+    return render(request,'movie/home.html',context)
     
