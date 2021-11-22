@@ -6,5 +6,6 @@ app_name = 'movie'
 urlpatterns = [
     path('', views.home, name='home'),
     path('<int:pk>/',views.detail,name='detail'),
+    path('<int:pk>/rating/<int:score>',views.rating,name='rating'),
     #path('recommendtation/',views.recommend,name='recommend'),
 ]
