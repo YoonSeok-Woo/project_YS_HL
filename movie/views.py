@@ -23,8 +23,9 @@ def detail(request,pk):
     return render(request, 'movie/detail.html',context)
 
 @require_POST
-def rating(request,pk,score):
+def rating(request,pk):
     user = request.user
+    score = request.POST.value
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
         if movie.rate.filter(pk=user.pk).exists():
