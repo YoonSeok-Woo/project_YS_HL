@@ -11,4 +11,32 @@ def home(request):
     context = {
         'movies':movies
     }
-    return render(request, 'movies/home.html', context)
+    return render(request, 'movie/home.html', context)
+
+@require_GET
+def recommend(request):
+    user = request.user
+    if user.is_authenticated:
+        movies = user.movies.all()
+        if len(movies)>=10:
+            genres_count = dict()
+            for movie in movies:
+                movie_genres = movie.genres
+                for genre in movie_genres:
+                    if genres_count[genre]:
+                        genres_count[genre]+=1
+                    else:
+                        genres_count[genre]=1
+            favorite = max(genres_count)
+            output = Movie.objects.filter(genres=favorite).order_by('?')[:10]
+            context = {
+                'movies': output
+            }
+            return render(request,'movies/recommend.html')
+    
+    movies = Movie.objects.order_by('?')[:10]
+    context = {
+        'movies':movies
+    }
+    return render(request, 'movies/recommend.html', context)
+    
