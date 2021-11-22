@@ -25,14 +25,22 @@ def detail(request,pk):
 @require_POST
 def rating(request,pk):
     user = request.user
-    score = request.POST.value
+    print(request.POST)
+    score = request.POST.get('rates')
+    print(score)
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
         if movie.rate.filter(pk=user.pk).exists():
-            movie.rate.rates=score
-            movie.save()
+            t_rates = Rates.objects.get(user_id=user)
+            t_rates.rates=score
+            t_rates.save()
         else:
-            movie.rate.add(user=user,rates=score)
+            
+            new_rates=Rates()
+            new_rates.user=user
+            new_rates.rates=score
+            new_rates.movie=movie
+            new_rates.save()
         return redirect('movie:detail',pk)
     
     return redirect('user:login')
