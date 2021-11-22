@@ -19,7 +19,15 @@ def detail(request,pk):
     context = {
         'movie':movie
     }
-    return render(request, 'movie/home.html',context)
+    return render(request, 'movie/detail.html',context)
+
+@require_POST
+def rating(request,pk,score):
+    user = request.user
+    if user.is_authenticated:
+        movie = get_object_or_404(Movie, pk=pk)
+        if user in movie.rates
+    return redirect('user:login')
 
 @require_GET
 def recommend(request):
@@ -38,13 +46,13 @@ def recommend(request):
             favorite = max(genres_count)
             output = Movie.objects.filter(genres=favorite).order_by('?')[:10]
             context = {
-                'movies': output
+                'movie': output
             }
-            return render(request,'movies/recommend.html')
+            return render(request,'movie/recommend.html')
     
     movies = Movie.objects.order_by('?')[:10]
     context = {
-        'movies':movies
+        'movie':movies
     }
-    return render(request, 'movies/recommend.html', context)
+    return render(request, 'movie/recommend.html', context)
     
