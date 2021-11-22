@@ -13,6 +13,14 @@ def home(request):
     }
     return render(request, 'movie/home.html', context)
 
+@require_http_methods(['GET','POST'])
+def detail(request,pk):
+    movie = get_object_or_404(Movie,pk=pk)
+    context = {
+        'movie':movie
+    }
+    return render(request, 'movie/home.html',context)
+
 @require_GET
 def recommend(request):
     user = request.user
