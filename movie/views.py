@@ -31,7 +31,7 @@ def rating(request,pk):
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
         if movie.rate.filter(pk=user.pk).exists():
-            t_rates = Rates.objects.get(user_id=user)
+            t_rates = Rates.objects.get(user_id=user,movie_id=movie)
             t_rates.rates=score
             t_rates.save()
         else:
