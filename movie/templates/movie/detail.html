@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ movie.title }}</h1>
+  <form method="POST">
+    <p>
+      <label for="id_rates">평점:</label>
+      <select name="rates" id="id_rates">
+        <option value="1">★☆☆☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="4">★★★★☆</option>
+        <option value="5" selected>★★★★★</option>
+      </select>
+    </p>
+    <button>등록</button>
+  </form>
+{% endblock content %}

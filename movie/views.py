@@ -19,7 +19,7 @@ def detail(request,pk):
     context = {
         'movie':movie
     }
-    return render(request, 'movie/home.html',context)
+    return render(request, 'movie/detail.html',context)
 
 @require_GET
 def recommend(request):
