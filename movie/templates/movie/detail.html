@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>{{ movie.title }}</h1>
+  <p>영화 평점 : {{ movie.average_rate }}</p>
   <form action="{% url 'movie:rating' movie.pk %}" method="POST" >
   {% csrf_token %}
     <p>

@@ -2,11 +2,11 @@
 
 {% block content %}
   {% for movie in movies %}
-    <p>영화 번호 : {{ movie.id}}</p>
+    <p>영화 번호 : {{ movie.id }}</p>
     <p>영화 제목 : {{ movie.title }}</p>
     <p>영화 내용 : {{ movie.overview }}</p>
     <p>영화 평점 : {{ movie.average_rate }}</p>
-    {% comment %} <a href="{% url 'movie:detail' article.pk %}">[DETAIL]</a> {% endcomment %}
+    <a href="{% url 'movie:detail' movie.pk %}">자세히 보기</a>
     <hr>
   {% endfor %}
 {% endblock content %}
