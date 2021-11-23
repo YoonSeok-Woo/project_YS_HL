@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+  <form method="POST" class="d-flex">
+    <input class="form-control me-2" type="text"  name="searchword" value="{{searchword}}" placeholder="영화 제목, 키워드를 입력해주세요">
     <button class="btn btn-outline-success" type="submit">검색</button>
   </form>
 {% endblock content %}
