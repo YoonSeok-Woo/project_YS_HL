@@ -99,11 +99,12 @@ def genre_movies(request,pk):
 
 @require_http_methods(['GET','POST'])
 def search(request):
-    print('here')
     if request.method=='POST':
         searchword = request.POST.get('searchword')
-        movies = Movie.objects.filter(Q(title=f'%{searchword}%') | Q(overview=f"%{searchword}%"))
-        response_data = MoiveSerializer(movies,many = True)
-        return JsonResponse(response_data,safe=False)
+        movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
+        context = {
+            'movies': movies
+        }
+        return render(request, 'movie/searchbar.html',context)
     return render(request, 'movie/searchbar.html')
         
