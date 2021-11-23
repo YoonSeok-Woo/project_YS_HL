@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form method="POST" class="d-flex">
+<div>
+  <form action="{% url movie:search %}"method="POST" class="d-flex">
+    {% csrf_token %}
     <input class="form-control me-2" type="text"  name="searchword" value="{{searchword}}" placeholder="영화 제목, 키워드를 입력해주세요">
     <button class="btn btn-outline-success" type="submit">검색</button>
   </form>
+</div>
+<div>
+  
+</div>
 {% endblock content %}
