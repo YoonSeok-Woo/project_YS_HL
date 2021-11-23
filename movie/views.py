@@ -76,7 +76,7 @@ def recommend(request):
         'movies':movies
     }
     return render(request, 'movie/recommend.html', context)
-
+@require_GET
 def genre_list(request):
     genres = Genre.objects.all()
     data = []
@@ -86,6 +86,7 @@ def genre_list(request):
             'genre_name':genre.name,
         })
     return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
+
 @require_http_methods(['GET','POST'])
 def search(request):
     if request.method=='POST':
