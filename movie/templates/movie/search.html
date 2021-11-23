@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="justify-content-center">
+  <form method="POST" class="d-flex justify-content-center">
+  {% csrf_token %}
+    <input type="text" name="searchword" value="{{searchword}}" placeholder="작품 제목을 검색해보세요.">
+    <button class="btn btn-outline-success" type="submit">검색</button>
+  </form>
+</div>
+{% endblock content %}

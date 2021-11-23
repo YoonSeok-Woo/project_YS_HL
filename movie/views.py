@@ -111,5 +111,5 @@ def search(request):
             'movies': movies
         }
         return render(request, 'movie/searchbar.html',context)
-    return render(request, 'movie/searchbar.html')
+    return render(request, 'movie/search.html')
         
