@@ -9,6 +9,11 @@
   </form>
 </div>
 <div>
+  {% if movies %}
+  {% for mv in movies %}
+    <a href="{% url 'movie:detail' mv.pk %}">{{ mv.title }}</a>
+  {% endfor %}
   
+  {% endif %}
 </div>
 {% endblock content %}

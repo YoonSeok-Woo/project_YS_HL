@@ -122,5 +122,5 @@ def search(request):
             'posts': posts,
         }
         return render(request, 'movie/searchbar.html',context)
-    return render(request, 'movie/searchbar.html')
+    return render(request, 'movie/search.html')
         
