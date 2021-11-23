@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for movie in movies %}
+    <p>영화 제목 : {{ movie.title }}</p>
+    <p>영화 내용 : {{ movie.overview }}</p>
+    <p>영화 평점 : {{ movie.average_rate }}</p>
+    <a href="{% url 'movie:detail' movie.pk %}">자세히 보기</a>
+    <hr>
+  {% endfor %}
+
+  {% if posts.has_previous %}
+        <a href="?page=1">1</a>
+        <a href="?page={{posts.previous_page_number}}">Previous</a>
+    {% endif %}
+        <span>{{posts.number}}<span>
+    {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}">{{posts.paginator.num_pages}}</a>
+    {% endif %}
+{% endblock content %}

@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods,require_GET
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .models import Movie, Genre, Rates
 from django.db.models import Avg, Q
 from django.http.response import JsonResponse, HttpResponse
@@ -91,10 +92,14 @@ def genre_list(request):
 def genre_movies(request,pk):
     genre = get_object_or_404(Genre,pk=pk)
     movies = Movie.objects.filter(genres=genre)
+    paginator = Paginator(movies, 5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     context = {
-        "movies" : movies
+        "movies" : movies,
+        "posts" : posts,
     }
-    return render(request, '', context)
+    return render(request, 'genre_list.html', context)
 
 
 @require_http_methods(['GET','POST'])
