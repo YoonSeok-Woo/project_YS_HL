@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/rating/',views.rating,name='rating'),
     path('recommend/',views.recommend,name='recommend'),
     path('genre_list/',views.genre_list,name='genre_list'),
+    path('search/', views.search, name= 'search'),
 ]

@@ -5,9 +5,9 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods,require_GET
 from django.contrib.auth.decorators import login_required
 from .models import Movie, Genre, Rates
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.http.response import JsonResponse, HttpResponse
-from django.core import serializers
+from .serializer import MoiveSerializer
 
 @require_GET
 def home(request):
@@ -76,7 +76,7 @@ def recommend(request):
         'movies':movies
     }
     return render(request, 'movie/recommend.html', context)
-
+@require_GET
 def genre_list(request):
     genres = Genre.objects.all()
     data = []
@@ -87,4 +87,12 @@ def genre_list(request):
         })
     return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
 
-
+@require_http_methods(['GET','POST'])
+def search(request):
+    if request.method=='POST':
+        searchword = request.POST.get('searchword')
+        movies = Movie.objects.filter(Q(title=f'%{searchword}%') | Q(overview=f"%{searchword}%"))
+        response_data = MoiveSerializer(movies,many = True)
+        return JsonResponse(response_data,safe=False)
+    return render(request, 'movie/seachbar.html')
+        
