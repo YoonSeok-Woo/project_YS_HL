@@ -107,8 +107,12 @@ def search(request):
     if request.method=='POST':
         searchword = request.POST.get('searchword')
         movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
+        paginator = Paginator(movies,5)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
         context = {
-            'movies': movies
+            'movies': movies,
+            'posts': posts,
         }
         return render(request, 'movie/searchbar.html',context)
     return render(request, 'movie/searchbar.html')
