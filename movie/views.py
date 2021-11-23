@@ -9,7 +9,7 @@ from .models import Movie, Genre, Rates
 from django.db.models import Avg, Q
 from django.http.response import JsonResponse, HttpResponse
 from .serializer import MoiveSerializer
-
+import json
 @require_GET
 def home(request):
     movies = Movie.objects.order_by('?')[:10]
@@ -26,12 +26,11 @@ def detail(request,pk):
     }
     return render(request, 'movie/detail.html',context)
 
-@require_POST
-def rating(request,pk):
+def rating(request, pk):
     user = request.user
-    print(request)
-    print(request.POST)
-    score = request.POST.get('rates')
+    print(user)
+
+    score = json.loads(request.body).get('rates')
     print(score)
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
@@ -55,7 +54,6 @@ def rating(request,pk):
         return JsonResponse(rated_status)
     
     return HttpResponse(status=401)
-    
 
 @require_GET
 def recommend(request):
