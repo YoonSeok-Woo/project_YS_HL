@@ -87,12 +87,23 @@ def genre_list(request):
         })
     return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
 
+@require_GET
+def genre_movies(request,pk):
+    genre = get_object_or_404(Genre,pk=pk)
+    movies = Movie.objects.filter(genres=genre)
+    context = {
+        "movies" : movies
+    }
+    return render(request, '', context)
+
+
 @require_http_methods(['GET','POST'])
 def search(request):
+    print('here')
     if request.method=='POST':
         searchword = request.POST.get('searchword')
         movies = Movie.objects.filter(Q(title=f'%{searchword}%') | Q(overview=f"%{searchword}%"))
         response_data = MoiveSerializer(movies,many = True)
         return JsonResponse(response_data,safe=False)
-    return render(request, 'movie/seachbar.html')
+    return render(request, 'movie/searchbar.html')
         
