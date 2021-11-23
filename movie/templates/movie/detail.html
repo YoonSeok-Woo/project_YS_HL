@@ -2,19 +2,57 @@
 
 {% block content %}
   <h1>{{ movie.title }}</h1>
-  <p>영화 평점 : {{ movie.average_rate }}</p>
-  <form action="{% url 'movie:rating' movie.pk %}" method="POST" >
+  <span id="average-rate">영화 평점 : {{ movie.average_rate }}</span>
+  <form data-id="{{movie.pk}}" id="rating-form">
   {% csrf_token %}
-    <p>
-      <label for="id_rates">평점:</label>
-      <select name="rates" id="id_rates">
-        <option value="1">★☆☆☆☆</option>
-        <option value="2">★★☆☆☆</option>
-        <option value="3">★★★☆☆</option>
-        <option value="4">★★★★☆</option>
-        <option value="5" selected>★★★★★</option>
-      </select>
-    </p>
-    <button>등록</button>
+    
+    <label for="id_rates">평점:</label>
+    <select name="rates" id="id_rates">
+      <option value="1">★☆☆☆☆</option>
+      <option value="2">★★☆☆☆</option>
+      <option value="3">★★★☆☆</option>
+      <option value="4">★★★★☆</option>
+      <option value="5" selected>★★★★★</option>
+    </select>
+    
+    <button class="submit">등록</button>
   </form>
+  <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const forms = document.querySelectorAll('#rating-form')
+
+    forms.forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+        const URL = `http://127.0.0.1:8000/movie/${event.target.dataset.id}/rating/`
+        const rates = document.querySelector('#rating-form > #id_rates')
+        console.log(URL)
+        console.log(rates)
+        axios({
+          method: "POST",
+          url: URL,
+          data: {
+            "rate" : rates.value
+          },
+          headers: {'X-CSRFToken': csrftoken },
+          
+          
+        })
+        .then(function (response) {
+          const score = response.data.score
+          const average_rate = response.data.average_rate
+          console.log(score)
+          console.log(average_rate)
+          const averageRate = documnet.querySelector('#average-rate')
+          averageRate.innertext = average_rate
+        })
+        .catch((err) => {
+          if (err.response.status ===401) {
+            window.location.href = '/user/login'
+          }
+        })
+      })
+    })
+  </script>
 {% endblock content %}

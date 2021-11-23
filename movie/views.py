@@ -29,8 +29,10 @@ def detail(request,pk):
 @require_POST
 def rating(request,pk):
     user = request.user
+    print(request)
+    print(request.POST)
     score = request.POST.get('rates')
-    
+    print(score)
     if user.is_authenticated:
         movie = get_object_or_404(Movie,pk=pk)
         if movie.rate.filter(pk=user.pk).exists():
@@ -46,9 +48,14 @@ def rating(request,pk):
             new_rates.save()
         movie.average_rate=Rates.objects.filter(movie_id=movie).aggregate(Avg('rates'))['rates__avg']
         movie.save()
-        return redirect('movie:detail',pk)
+        rated_status = {
+            'score': score,
+            'average_rate': movie.average_rate
+        }
+        return JsonResponse(rated_status)
     
-    return redirect('user:login')
+    return HttpResponse(status=401)
+    
 
 @require_GET
 def recommend(request):
