@@ -6,6 +6,8 @@ from django.views.decorators.http import require_safe, require_POST, require_htt
 from django.contrib.auth.decorators import login_required
 from .models import Movie, Genre, Rates
 from django.db.models import Avg
+from django.http.response import JsonResponse, HttpResponse
+from django.core import serializers
 
 @require_GET
 def home(request):
@@ -75,12 +77,14 @@ def recommend(request):
     }
     return render(request, 'movie/recommend.html', context)
 
-@require_GET
-def genre_search(request,genre_name):
-    genre = get_object_or_404(Genre,name=genre_name)
-    movies = Movie.objects.filter(genres=genre)
-    context = {
-        'movies':movies
-    }
-    return render(request,'movie/genre_search.html',context)
-    
+def genre_list(request):
+    genres = Genre.objects.all()
+    data = []
+    for genre in genres:
+        data.append({
+            'pk':genre.pk,
+            'genre_name':genre.name,
+        })
+    return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
+
+

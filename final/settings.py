@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'user',
     'community',
     'movie',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

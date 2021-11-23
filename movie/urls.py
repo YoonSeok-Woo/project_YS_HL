@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('<int:pk>/',views.detail,name='detail'),
     path('<int:pk>/rating/',views.rating,name='rating'),
-    path('recommendtation/',views.recommend,name='recommend'),
-    path('genre/<str:genre_name>/',views.genre_search, name = 'genre_search'),
+    path('recommend/',views.recommend,name='recommend'),
+    path('genre_list/',views.genre_list,name='genre_list'),
 ]
