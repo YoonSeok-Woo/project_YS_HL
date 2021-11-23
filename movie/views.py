@@ -99,7 +99,7 @@ def genre_movies(request,pk):
         "movies" : movies,
         "posts" : posts,
     }
-    return render(request, 'genre_list.html', context)
+    return render(request, 'movie/genre_list.html', context)
 
 
 @require_http_methods(['GET','POST'])
