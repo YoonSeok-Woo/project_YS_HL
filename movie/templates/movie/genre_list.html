@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% for movie in movies %}
+  {% for movie in posts %}
     <p>영화 제목 : {{ movie.title }}</p>
     <p>영화 내용 : {{ movie.overview }}</p>
     <p>영화 평점 : {{ movie.average_rate }}</p>
