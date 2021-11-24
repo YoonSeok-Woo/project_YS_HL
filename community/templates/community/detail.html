@@ -1,16 +1,30 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
-  <h2>{{ community.pk }} 번째 글</h2>
-  <p>제목 : {{ community.title }}</p>
-  <p>번호 : {{ community.pk }}</p>
-  <p>작성자 : {{ community.user }}</p>
-  <p>내용 : {{ community.content }}</p>
-  <p>첨부이미지: {{ community.image }}</p>
-  <p>작성시각 : {{ community.created_at }}</p>
-  <p>수정시각 : {{ community.updated_at }}</p>
-
+  <div class="border-bottom p-3 mt-5" style="background-color: rgba(255, 255, 255, 0.5); border-color: darkslategray !important;">
+  <div>
+    <div class="font-weight-bold custom-break-word">{{ community.title }}</div>
+    <a class="text-dark custom-break-word">작성자: {{ community.user }}</a>
+  </div>
   <hr>
+  <pre class="custom-break-word">{{ community.content }}</pre>
+  <hr>
+  <div class="text-right">
+    <div><small>작성:{{ community.created_at }}</small></div>
+    <div><small>수정:{{ community.updated_at }}</small></div>
+  </div>
+  {% if user == community.user %}
+  <div class="text-right">
+    <form action="{% url 'community:delete' community.pk %}" method="POST">
+
+      <a href="{% url 'community:update' community.pk %}" class="square_btn">수정</a>
+      {% csrf_token %}
+      <button type="submit" class="square_btn" value="삭제">삭제</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+  <br>
   <h4>댓글</h4>
   {% if comments|length %}
     <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
