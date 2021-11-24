@@ -12,7 +12,7 @@
 </div>
 <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  
+  let movies = []
   const forms = document.querySelectorAll('#searchbar-form')
   forms.forEach(function (form) {
     form.addEventListener('submit', function (event) {
@@ -28,29 +28,37 @@
       console.log(URL)
       axios.get(URL)
       .then(function (response) {
-        const movies = response.data.data
         const list = document.getElementById('movie-list')
         list.innerText=''
-        console.log(movies)
-        for (movie in movies){
-          if (movie > 10) {
-            break
+        console.log(response.data.data.length)
+        if (response.data.data.length===0){
+          let no_result = document.createElement("p")
+          no_result.innerText="검색결과가 없습니다."
+          list.appendChild(no_result)
+        }
+        else{
+          movies = response.data.data
+          
+          for (movie in movies){
+            if (movie > 10) {
+              break
+            }
+            let title = document.createElement("p")
+            let poster = document.createElement('img')
+            let avgrate = document.createElement('p')
+            let link = document.createElement('a')
+            const breakline = document.createElement('br')
+            title.innerText = '제목:'+movies[movie].title
+            poster.setAttribute("src",movies[movie].posterpath)
+            avgrate.innerText = '평점:'+movies[movie].average_rate
+            link.innerText = 'Detail'
+            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            list.appendChild(poster)
+            list.appendChild(title)
+            list.appendChild(avgrate)
+            list.appendChild(link)
+            list.appendChild(breakline)
           }
-          let title = document.createElement("p")
-          let poster = document.createElement('img')
-          let avgrate = document.createElement('p')
-          let link = document.createElement('a')
-          const breakline = document.createElement('br')
-          title.innerText = '제목:'+movies[movie].title
-          poster.setAttribute("src",movies[movie].posterpath)
-          avgrate.innerText = '평점:'+movies[movie].average_rate
-          link.innerText = 'Detail'
-          link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
-          list.appendChild(poster)
-          list.appendChild(title)
-          list.appendChild(avgrate)
-          list.appendChild(link)
-          list.appendChild(breakline)
         }
       })
       .catch((err) => {
