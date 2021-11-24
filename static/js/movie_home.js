@@ -13,8 +13,8 @@ axios.get(URL)
   }
 })
 gsap.timeline()
-    .set('.ring', { rotationY:180, cursor:'grab' })
-    .set('.img',  {
+    .set('.ringa', { rotationY:180, cursor:'grab' })
+    .set('.imga',  {
       rotateY: (i)=> i*-36,
       transformOrigin: '50% 50% 500px',
       z: -500,
@@ -22,7 +22,7 @@ gsap.timeline()
       backgroundPosition:(i)=>getBgPos(i),
       backfaceVisibility:'hidden'
     })    
-    .from('.img', {
+    .from('.imga', {
       duration:1.5,
       y:200,
       opacity:0,
@@ -30,12 +30,12 @@ gsap.timeline()
       ease:'expo'
     })
     .add(()=>{
-      $('.img').on('mouseenter', (e)=>{
+      $('.imga').on('mouseenter', (e)=>{
         let current = e.currentTarget;
-        gsap.to('.img', {opacity:(i,t)=>(t==current)? 1:0.5, ease:'power3'})
+        gsap.to('.imga', {opacity:(i,t)=>(t==current)? 1:0.5, ease:'power3'})
       })
-      $('.img').on('mouseleave', (e)=>{
-        gsap.to('.img', {opacity:1, ease:'power2.inOut'})
+      $('.imga').on('mouseleave', (e)=>{
+        gsap.to('.imga', {opacity:1, ease:'power2.inOut'})
       })
     }, '-=0.5')
 
@@ -46,7 +46,7 @@ $(window).on('mouseup touchend', dragEnd);
 function dragStart(e){ 
   if (e.touches) e.clientX = e.touches[0].clientX;
   xPos = Math.round(e.clientX);
-  gsap.set('.ring', {cursor:'grabbing'})
+  gsap.set('.ringa', {cursor:'grabbing'})
   $(window).on('mousemove touchmove', drag);
 }
 
@@ -54,9 +54,9 @@ function dragStart(e){
 function drag(e){
   if (e.touches) e.clientX = e.touches[0].clientX;    
 
-  gsap.to('.ring', {
+  gsap.to('.ringa', {
     rotationY: '-=' +( (Math.round(e.clientX)-xPos)%360 ),
-    onUpdate:()=>{ gsap.set('.img', { backgroundPosition:(i)=>getBgPos(i) }) }
+    onUpdate:()=>{ gsap.set('.imga', { backgroundPosition:(i)=>getBgPos(i) }) }
   });
   
   xPos = Math.round(e.clientX);
@@ -65,7 +65,7 @@ function drag(e){
 
 function dragEnd(e){
   $(window).off('mousemove touchmove', drag);
-  gsap.set('.ring', {cursor:'grab'});
+  gsap.set('.ringa', {cursor:'grab'});
 }
 
 
