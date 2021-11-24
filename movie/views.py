@@ -29,8 +29,8 @@ def detail(request,pk):
     movie = get_object_or_404(Movie,pk=pk)
     genres = movie.genres.all()
     print(genres)
-    for genre in genres:
-        print(genre.name)
+    #for genre in genres:
+    #    print(genre.name)
     context = {
         'movie':movie,
         'genres':genres
