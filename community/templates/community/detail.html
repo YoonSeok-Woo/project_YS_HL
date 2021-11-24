@@ -3,11 +3,13 @@
 {% block content %}
   <div class="border-bottom p-3 mt-5" style="background-color: rgba(255, 255, 255, 0.5); border-color: darkslategray !important;">
   <div>
-    <div class="font-weight-bold custom-break-word">{{ community.title }}</div>
-    <a class="text-dark custom-break-word">작성자: {{ community.user }}</a>
+    <h3 class="font-weight-bold custom-break-word">{{ community.title }}</h3>
+    <a class="text-dark custom-break-word"><small>작성자: {{ community.user }}</small></a>
   </div>
   <hr>
-  <pre>{{ community.image }}</pre>
+  <img src="{{ community.image.url }}" alt="">
+  <br>
+  <br>
   <pre class="custom-break-word">{{ community.content }}</pre>
   <hr>
   <div class="text-right">
