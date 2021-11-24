@@ -1,14 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <div class="card-group">
+  <div class="row g-2" style="text-align: center; display: flex; justify-content:space-between">
   {% for movie in posts %}
-    <p>영화 제목 : {{ movie.title }}</p>
-    <p>영화 내용 : {{ movie.overview }}</p>
-    <p>영화 평점 : {{ movie.average_rate }}</p>
-    <a href="{% url 'movie:detail' movie.pk %}">자세히 보기</a>
-    <hr>
+  <div class="card col-2 border-0 m-1">
+    <a href="{% url 'movie:detail' movie.pk %}">
+      <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top">
+    </a>
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="{% url 'movie:detail' movie.pk %}">{{ movie.title }}</a>
+      </h5>
+      {% if movie.average_rate == 0.0 %}
+        
+        <p>평점이 매겨지지 않은 영화입니다.</p>
+      {% else %}
+        <p>영화 평점 : {{ movie.average_rate }}</p>
+      {% endif %}
+      
+    </div>
+  </div>
   {% endfor %}
-
+  </div>
+</div>
+<style>
+.card-img-top {
+  width: 200px;
+  height: 300px;
+}
+.card-title {
+  font-weight: bolder;
+}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:active { color: black; text-decoration: none;}
+a:hover { color: black; text-decoration: none;}
+</style>
   <nav aria-label="...">
   <ul class="pagination justify-content-center">
     {% if posts.has_previous %}

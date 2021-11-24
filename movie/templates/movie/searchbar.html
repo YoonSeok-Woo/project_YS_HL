@@ -8,7 +8,12 @@
     <button class="btn btn-outline-success" type="submit">검색</button>
   </form>
 </div>
-<div id = "movie-list">
+<br>
+<br>
+<div class="card-group">
+  <div class= "row g-2" style="text-align: center; display: flex; justify-content:space-between" id = "movie-list">
+  
+  </div>
 </div>
 <div id="pagination">
 </div>
@@ -44,21 +49,39 @@
           page -=1
           //console.log(response)
           for (movie in movies){
-            let title = document.createElement("p")
-            let poster = document.createElement('img')
-            let avgrate = document.createElement('p')
-            let link = document.createElement('a')
-            const breakline = document.createElement('br')
-            title.innerText = '제목:'+movies[movie].title
-            poster.setAttribute("src",movies[movie].posterpath)
-            avgrate.innerText = '평점:'+movies[movie].average_rate
-            link.innerText = 'Detail'
-            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
-            list.appendChild(poster)
-            list.appendChild(title)
-            list.appendChild(avgrate)
-            list.appendChild(link)
-            list.appendChild(breakline)
+            //카드 만들기
+            let card = document.createElement("div")
+            card.setAttribute('class','card col-2 border-0 m-1')
+            //카드에 이미지 넣기
+            let cardposter = document.createElement("a")
+            cardposter.setAttribute('href',`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            let postimg = document.createElement("img")
+            postimg.setAttribute('src',movies[movie].posterpath)
+            postimg.setAttribute('class',"card-img-top")
+            cardposter.appendChild(postimg)
+            card.appendChild(cardposter)
+            //카드에 타이틀과 평점이 들어갈 카드바디 만들기
+            let cardbody = document.createElement("div")
+            cardbody.setAttribute('class','card-body')
+            //카드 타이틀 만들기
+            let title = document.createElement("h5")
+            title.setAttribute('class','card-title')
+            let titlelink = document.createElement("a")
+            titlelink.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            titlelink.innerText = `${movies[movie].title}`
+            title.appendChild(titlelink)
+            cardbody.appendChild(title)
+            //카드 평점 만들기
+            let avgrate = document.createElement("p")
+            if (movies[movie].average_rate==0) {
+              avgrate.innerText= '평점이 매겨지지 않은 영화입니다.'
+            }
+            else {
+              avgrate.innerText = `평점:${movies[movie].average_rate}`
+            }
+            cardbody.appendChild(avgrate)
+            card.appendChild(cardbody)  
+            list.appendChild(card)
           }
           let previous = document.createElement("li")
           let currentpage = document.createElement("li")
@@ -132,21 +155,39 @@
           page +=1
           //console.log(response)
           for (movie in movies){
-            let title = document.createElement("p")
-            let poster = document.createElement('img')
-            let avgrate = document.createElement('p')
-            let link = document.createElement('a')
-            const breakline = document.createElement('br')
-            title.innerText = '제목:'+movies[movie].title
-            poster.setAttribute("src",movies[movie].posterpath)
-            avgrate.innerText = '평점:'+movies[movie].average_rate
-            link.innerText = 'Detail'
-            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
-            list.appendChild(poster)
-            list.appendChild(title)
-            list.appendChild(avgrate)
-            list.appendChild(link)
-            list.appendChild(breakline)
+            //카드 만들기
+            let card = document.createElement("div")
+            card.setAttribute('class','card col-2 border-0 m-1')
+            //카드에 이미지 넣기
+            let cardposter = document.createElement("a")
+            cardposter.setAttribute('href',`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            let postimg = document.createElement("img")
+            postimg.setAttribute('src',movies[movie].posterpath)
+            postimg.setAttribute('class',"card-img-top")
+            cardposter.appendChild(postimg)
+            card.appendChild(cardposter)
+            //카드에 타이틀과 평점이 들어갈 카드바디 만들기
+            let cardbody = document.createElement("div")
+            cardbody.setAttribute('class','card-body')
+            //카드 타이틀 만들기
+            let title = document.createElement("h5")
+            title.setAttribute('class','card-title')
+            let titlelink = document.createElement("a")
+            titlelink.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            titlelink.innerText = `${movies[movie].title}`
+            title.appendChild(titlelink)
+            cardbody.appendChild(title)
+            //카드 평점 만들기
+            let avgrate = document.createElement("p")
+            if (movies[movie].average_rate==0) {
+              avgrate.innerText= '평점이 매겨지지 않은 영화입니다.'
+            }
+            else {
+              avgrate.innerText = `평점:${movies[movie].average_rate}`
+            }
+            cardbody.appendChild(avgrate)
+            card.appendChild(cardbody)  
+            list.appendChild(card)
           }
           let previous = document.createElement("li")
           let currentpage = document.createElement("li")
@@ -223,21 +264,39 @@
           page = 1
           //console.log(response)
           for (movie in movies){
-            let title = document.createElement("p")
-            let poster = document.createElement('img')
-            let avgrate = document.createElement('p')
-            let link = document.createElement('a')
-            const breakline = document.createElement('br')
-            title.innerText = '제목:'+movies[movie].title
-            poster.setAttribute("src",movies[movie].posterpath)
-            avgrate.innerText = '평점:'+movies[movie].average_rate
-            link.innerText = 'Detail'
-            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
-            list.appendChild(poster)
-            list.appendChild(title)
-            list.appendChild(avgrate)
-            list.appendChild(link)
-            list.appendChild(breakline)
+            //카드 만들기
+            let card = document.createElement("div")
+            card.setAttribute('class','card col-2 border-0 m-1')
+            //카드에 이미지 넣기
+            let cardposter = document.createElement("a")
+            cardposter.setAttribute('href',`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            let postimg = document.createElement("img")
+            postimg.setAttribute('src',movies[movie].posterpath)
+            postimg.setAttribute('class',"card-img-top")
+            cardposter.appendChild(postimg)
+            card.appendChild(cardposter)
+            //카드에 타이틀과 평점이 들어갈 카드바디 만들기
+            let cardbody = document.createElement("div")
+            cardbody.setAttribute('class','card-body')
+            //카드 타이틀 만들기
+            let title = document.createElement("h5")
+            title.setAttribute('class','card-title')
+            let titlelink = document.createElement("a")
+            titlelink.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            titlelink.innerText = `${movies[movie].title}`
+            title.appendChild(titlelink)
+            cardbody.appendChild(title)
+            //카드 평점 만들기
+            let avgrate = document.createElement("p")
+            if (movies[movie].average_rate==0) {
+              avgrate.innerText= '평점이 매겨지지 않은 영화입니다.'
+            }
+            else {
+              avgrate.innerText = `평점:${movies[movie].average_rate}`
+            }
+            cardbody.appendChild(avgrate)
+            card.appendChild(cardbody)  
+            list.appendChild(card)
           }
           let previous = document.createElement("li")
           let currentpage = document.createElement("li")
@@ -288,4 +347,18 @@
     })
   })
 </script>
+<style>
+
+.card-img-top {
+  width: 200px;
+  height: 300px;
+}
+.card-title {
+  font-weight: bolder;
+}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:active { color: black; text-decoration: none;}
+a:hover { color: black; text-decoration: none;}
+</style>
 {% endblock content %}

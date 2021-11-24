@@ -25,7 +25,7 @@ gsap.timeline()
     .set('.ringa', { rotationY:180, cursor:'grab' })
     .set('.imga',  {
       rotateY: (i)=> i*-36,
-      transformOrigin: '50% 50% 500px',
+      transformOrigin: '50% 50% 500Wpx',
       z: -500,
       backgroundImage:(i)=>`url(${movies[i].posterpath})`,
       backgroundPosition:(i)=>getBgPos(i),

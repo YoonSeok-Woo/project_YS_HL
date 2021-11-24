@@ -108,7 +108,7 @@ def genre_list(request):
 def genre_movies(request,pk):
     genre = get_object_or_404(Genre,pk=pk)
     movies = Movie.objects.filter(genres=genre)
-    paginator = Paginator(movies, 5)
+    paginator = Paginator(movies, 10)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     context = {
@@ -126,7 +126,7 @@ def search(request):
 def searchword(request,searchword):
     
     movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
-    paginator = Paginator(movies,5)
+    paginator = Paginator(movies,10)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     data = []
