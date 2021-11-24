@@ -6,6 +6,15 @@ axios.get(URL)
 .then(function (response) {
   console.log(response.data.data)
   movies = response.data.data
+  console.log(movies)
+  const images = document.querySelectorAll('.imga')
+  let count = 0
+
+  images.forEach(function (image) {
+  console.log(movies[count])
+  image.setAttribute('href',`http://127.0.0.1:8000/movie/${movies[count].pk}/`)
+  count+=1
+})
 })
 .catch((err) => {
   if (err.response.status ===401){
@@ -72,3 +81,4 @@ function dragEnd(e){
 function getBgPos(i){
   return ( 100-gsap.utils.wrap(0,360,gsap.getProperty('.ring', 'rotationY')-180-i*36)/360*500 )+'px 0px';
 }
+
