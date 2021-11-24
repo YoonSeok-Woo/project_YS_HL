@@ -13,16 +13,14 @@ from django.core import serializers
 import json
 @require_GET
 def home(request):
-    movies = Movie.objects.order_by('?')[:10]
-    context = {
-        'movies':movies
-    }
-    return render(request, 'movie/home.html', context)
+    
+    return render(request, 'movie/home.html')
 def random(request):
     movies = Movie.objects.order_by('?')[:10]
     data = []
     for movie in movies:
         data.append({
+            'pk':movie.pk,
             'posterpath':movie.poster_path,
         })
     return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
