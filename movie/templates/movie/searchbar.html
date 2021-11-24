@@ -10,27 +10,30 @@
 </div>
 <div id = "movie-list">
 </div>
+<div id="pagination">
+</div>
+
+</div>
 <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   let movies = []
+  let page = 1
   const forms = document.querySelectorAll('#searchbar-form')
-  forms.forEach(function (form) {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault()
-      
-      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  function prev() {
+    console.log('prev')
+    event.preventDefault()
       const searchword = document.querySelector('#searchbar-form > #searchword').value
       
-      const headers = {
-        headers: {'X-CSRFToken':csrftoken}
-      }
-      const URL = `http://127.0.0.1:8000/movie/search/${searchword}`
+      const URL = `http://127.0.0.1:8000/movie/search/${searchword}/?page=${page-1}`
       console.log(URL)
       axios.get(URL)
       .then(function (response) {
         const list = document.getElementById('movie-list')
+        const pages = document.getElementById('pagination')
+        console.log(pages)
+        pages.innerText=''
         list.innerText=''
-        console.log(response.data.data.length)
+        //console.log(response.data.data)
         if (response.data.data.length===0){
           let no_result = document.createElement("p")
           no_result.innerText="검색결과가 없습니다."
@@ -38,11 +41,9 @@
         }
         else{
           movies = response.data.data
-          
+          page -=1
+          //console.log(response)
           for (movie in movies){
-            if (movie > 10) {
-              break
-            }
             let title = document.createElement("p")
             let poster = document.createElement('img')
             let avgrate = document.createElement('p')
@@ -59,6 +60,224 @@
             list.appendChild(link)
             list.appendChild(breakline)
           }
+          let previous = document.createElement("li")
+          let currentpage = document.createElement("li")
+          let next = document.createElement("li")
+          //previous
+          previous.setAttribute("class","page-item")
+          let prelink = document.createElement("a")
+          prelink.setAttribute("href",'#')//`${searchword}?page=${page-1}`)
+          prelink.setAttribute("onclick", 'prev()')
+          prelink.setAttribute("class","page-link")
+          prelink.innerText='Previous'
+          previous.appendChild(prelink)
+          //current
+          currentpage.setAttribute("class","page-item active")
+          let clink = document.createElement("a")
+          clink.setAttribute('href','#')
+          clink.setAttribute('class','page-link')
+          clink.innerText = page
+          currentpage.appendChild(clink)
+          //next
+          next.setAttribute("class","page-item")
+          let nextlink = document.createElement("a")
+          nextlink.setAttribute("href",'#')//`${searchword}?page=${page+1}`)
+          nextlink.setAttribute("onclick",'next()')
+          nextlink.setAttribute("class",`page-link`)
+          nextlink.innerText='Next'
+          next.appendChild(nextlink)
+          //paginator 종합
+          paginator = document.createElement("ul")
+          paginator.setAttribute("class","pagination justify-content-center")
+          if (response.data.posts.has_previous) {
+            paginator.appendChild(previous)
+          }
+          paginator.appendChild(currentpage)
+          if (response.data.posts.has_next) {
+            paginator.appendChild(next)
+          }
+          console.log(paginator)
+          pages.appendChild(paginator)
+          console.log(pages)
+        }
+      })
+      .catch((err) => {
+        if (err.response.status ===401){
+          window.location.href = '/user/login'
+        }
+      })
+  }
+  function next() {
+    console.log('next')
+    event.preventDefault()
+      const searchword = document.querySelector('#searchbar-form > #searchword').value
+      
+      const URL = `http://127.0.0.1:8000/movie/search/${searchword}/?page=${page+1}`
+      console.log(URL)
+      axios.get(URL)
+      .then(function (response) {
+        const list = document.getElementById('movie-list')
+        const pages = document.getElementById('pagination')
+        console.log(pages)
+        pages.innerText=''
+        list.innerText=''
+        //console.log(response.data.data)
+        if (response.data.data.length===0){
+          let no_result = document.createElement("p")
+          no_result.innerText="검색결과가 없습니다."
+          list.appendChild(no_result)
+        }
+        else{
+          movies = response.data.data
+          page +=1
+          //console.log(response)
+          for (movie in movies){
+            let title = document.createElement("p")
+            let poster = document.createElement('img')
+            let avgrate = document.createElement('p')
+            let link = document.createElement('a')
+            const breakline = document.createElement('br')
+            title.innerText = '제목:'+movies[movie].title
+            poster.setAttribute("src",movies[movie].posterpath)
+            avgrate.innerText = '평점:'+movies[movie].average_rate
+            link.innerText = 'Detail'
+            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            list.appendChild(poster)
+            list.appendChild(title)
+            list.appendChild(avgrate)
+            list.appendChild(link)
+            list.appendChild(breakline)
+          }
+          let previous = document.createElement("li")
+          let currentpage = document.createElement("li")
+          let next = document.createElement("li")
+          //previous
+          previous.setAttribute("class","page-item")
+          let prelink = document.createElement("a")
+          prelink.setAttribute("href",'#')//`${searchword}?page=${page-1}`)
+          prelink.setAttribute("onclick", 'prev()')
+          prelink.setAttribute("class","page-link")
+          prelink.innerText='Previous'
+          previous.appendChild(prelink)
+          //current
+          currentpage.setAttribute("class","page-item active")
+          let clink = document.createElement("a")
+          clink.setAttribute('href','#')
+          clink.setAttribute('class','page-link')
+          clink.innerText = page
+          currentpage.appendChild(clink)
+          //next
+          next.setAttribute("class","page-item")
+          let nextlink = document.createElement("a")
+          nextlink.setAttribute("href",'#')//`${searchword}?page=${page+1}`)
+          nextlink.setAttribute("onclick",'next()')
+          nextlink.setAttribute("class",`page-link`)
+          nextlink.innerText='Next'
+          next.appendChild(nextlink)
+          //paginator 종합
+          paginator = document.createElement("ul")
+          paginator.setAttribute("class","pagination justify-content-center")
+          if (response.data.posts.has_previous) {
+            paginator.appendChild(previous)
+          }
+          paginator.appendChild(currentpage)
+          if (response.data.posts.has_next) {
+            paginator.appendChild(next)
+          }
+          console.log(paginator)
+          pages.appendChild(paginator)
+          console.log(pages)
+        }
+      })
+      .catch((err) => {
+        if (err.response.status ===401){
+          window.location.href = '/user/login'
+        }
+      })
+  }
+
+
+
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+      const searchword = document.querySelector('#searchbar-form > #searchword').value
+      
+      const URL = `http://127.0.0.1:8000/movie/search/${searchword}`
+      console.log(URL)
+      axios.get(URL)
+      .then(function (response) {
+        const list = document.getElementById('movie-list')
+        const pages = document.getElementById('pagination')
+        console.log(pages)
+        pages.innerText=''
+        list.innerText=''
+        //console.log(response.data.data)
+        if (response.data.data.length===0){
+          let no_result = document.createElement("p")
+          no_result.innerText="검색결과가 없습니다."
+          list.appendChild(no_result)
+        }
+        else{
+          movies = response.data.data
+          page = 1
+          //console.log(response)
+          for (movie in movies){
+            let title = document.createElement("p")
+            let poster = document.createElement('img')
+            let avgrate = document.createElement('p')
+            let link = document.createElement('a')
+            const breakline = document.createElement('br')
+            title.innerText = '제목:'+movies[movie].title
+            poster.setAttribute("src",movies[movie].posterpath)
+            avgrate.innerText = '평점:'+movies[movie].average_rate
+            link.innerText = 'Detail'
+            link.setAttribute("href",`http://127.0.0.1:8000/movie/${movies[movie].pk}`)
+            list.appendChild(poster)
+            list.appendChild(title)
+            list.appendChild(avgrate)
+            list.appendChild(link)
+            list.appendChild(breakline)
+          }
+          let previous = document.createElement("li")
+          let currentpage = document.createElement("li")
+          let next = document.createElement("li")
+          //previous
+          previous.setAttribute("class","page-item")
+          let prelink = document.createElement("a")
+          prelink.setAttribute("href",'#')//`${searchword}?page=${page-1}`)
+          prelink.setAttribute("onclick", 'prev()')
+          prelink.setAttribute("class","page-link")
+          prelink.innerText='Previous'
+          previous.appendChild(prelink)
+          //current
+          currentpage.setAttribute("class","page-item active")
+          let clink = document.createElement("a")
+          clink.setAttribute('href','#')
+          clink.setAttribute('class','page-link')
+          clink.innerText = page
+          currentpage.appendChild(clink)
+          //next
+          next.setAttribute("class","page-item")
+          let nextlink = document.createElement("a")
+          nextlink.setAttribute("href",'#')//`${searchword}?page=${page+1}`)
+          nextlink.setAttribute("onclick",'next()')
+          nextlink.setAttribute("class",`page-link`)
+          nextlink.innerText='Next'
+          next.appendChild(nextlink)
+          //paginator 종합
+          paginator = document.createElement("ul")
+          paginator.setAttribute("class","pagination justify-content-center")
+          if (response.data.posts.has_previous) {
+            paginator.appendChild(previous)
+          }
+          paginator.appendChild(currentpage)
+          if (response.data.posts.has_next) {
+            paginator.appendChild(next)
+          }
+          console.log(paginator)
+          pages.appendChild(paginator)
+          console.log(pages)
         }
       })
       .catch((err) => {

@@ -9,6 +9,7 @@ from .models import Movie, Genre, Rates
 from django.db.models import Avg, Q
 from django.http.response import JsonResponse, HttpResponse
 from .serializer import MoiveSerializer
+from django.core import serializers
 import json
 @require_GET
 def home(request):
@@ -115,9 +116,11 @@ def search(request):
 def searchword(request,searchword):
     
     movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
+    paginator = Paginator(movies,5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     data = []
-    for movie in movies:
-        print(movie.genres)
+    for movie in posts:
         data.append({
             'pk':movie.pk,
             'title':movie.title,
@@ -125,4 +128,9 @@ def searchword(request,searchword):
             'posterpath':movie.poster_path,
             'average_rate':movie.average_rate,
         })
-    return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
+    post_data = {
+        'has_next':posts.has_next(),
+        'has_previous':posts.has_previous(),
+        'num_pages':posts.paginator.num_pages
+    }
+    return JsonResponse({'data':data,'posts':post_data}, json_dumps_params={'ensure_ascii':False},status=200)

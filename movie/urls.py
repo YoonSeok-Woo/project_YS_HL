@@ -11,5 +11,5 @@ urlpatterns = [
     path('genre_list/',views.genre_list,name='genre_list'),
     path('genre/<int:pk>/',views.genre_movies,name='genre_movies'),
     path('search/', views.search, name= 'search'),
-    path('search/<str:searchword>',views.searchword,name='searchword')
+    path('search/<str:searchword>/',views.searchword,name='searchword')
 ]
