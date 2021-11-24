@@ -18,7 +18,14 @@ def home(request):
         'movies':movies
     }
     return render(request, 'movie/home.html', context)
-
+def random(request):
+    movies = Movie.objects.order_by('?')[:10]
+    data = []
+    for movie in movies:
+        data.append({
+            'posterpath':movie.poster_path,
+        })
+    return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)
 @require_http_methods(['GET','POST'])
 def detail(request,pk):
     movie = get_object_or_404(Movie,pk=pk)

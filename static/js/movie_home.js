@@ -1,12 +1,24 @@
 let xPos = 0;
-
+console.log("hey")
+let movies = []
+const URL = 'http://127.0.0.1:8000/movie/randoms/'
+axios.get(URL)
+.then(function (response) {
+  console.log(response.data.data)
+  movies = response.data.data
+})
+.catch((err) => {
+  if (err.response.status ===401){
+    window.location.href = '/user/login'
+  }
+})
 gsap.timeline()
     .set('.ring', { rotationY:180, cursor:'grab' })
     .set('.img',  {
       rotateY: (i)=> i*-36,
       transformOrigin: '50% 50% 500px',
       z: -500,
-      backgroundImage:(i)=>'url(https://picsum.photos/id/'+(i+32)+'/600/400/)',
+      backgroundImage:(i)=>`url(${movies[i].posterpath})`,
       backgroundPosition:(i)=>getBgPos(i),
       backfaceVisibility:'hidden'
     })    
