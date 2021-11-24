@@ -5,21 +5,22 @@
   <table class="table row m-0">
     <thead class="col-12 thead-dark">
       <tr class="row w-100 m-0">
-        <th class="col-1 text-center p-1">#</th>
-        <th class="col-7 col-md-8 p-1">제목</th>
-        <th class="col-4 col-md-3 p-1 text-center">작성자</th>
+        <th class="col-2 col-md-2 p-1 text-center">작성자</th>
+        <th class="col-7 col-md-7 p-1">제목</th>
+        <th class="col-3 text-center p-1">작성날짜</th>
       </tr>
     </thead>
     <tbody class="col-12">
       {% for community in communities %}
       <tr class="row m-0" onclick="location.href='{% url 'community:detail' community.pk %}'" style="cursor:pointer;">
-        <th class="col-1 p-1 text-center">{{ community.pk }}</th>
-        <td class="col-7 col-md-8 p-1 text-truncate" colspan="2">{{ community.title }}</td>
-        <td class="col-4 col-md-3 p-1 text-center text-truncate">{{ community.user }}</td>
+        <th class="col-2 col-md-2 p-1 text-center text-truncate">{{ community.user }}</th>
+        <td class="col-7 col-md-7 p-1 text-truncate" colspan="2">{{ community.title }}</td>
+        <td class="col-3 p-1 text-center"><small>{{ community.created_at }}</small></td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  <br>
   <div class="d-flex justify-content-end"> 
     <a href="{% url 'community:create' %}" class="btn btn-primary">새 글 작성</a>
   </div>

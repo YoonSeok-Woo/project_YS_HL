@@ -12,14 +12,12 @@
   <br>
   <pre class="custom-break-word">{{ community.content }}</pre>
   <hr>
-  <div class="text-right">
-    <div><small>작성:{{ community.created_at }}</small></div>
-    <div><small>수정:{{ community.updated_at }}</small></div>
-  </div>
+    <div style="display: flex; justify-content: end;"><small>작성:{{ community.created_at }}</small></div>
+    <div style="display: flex; justify-content: end;"><small>수정:{{ community.updated_at }}</small></div>
   {% if user == community.user %}
-  <div>
-      <a href="{% url 'community:update' community.pk %}" class="square_btn">수정</a>
-      <a href="{% url 'community:delete' community.pk %}" class="square_btn">삭제</a>
+  <div style="display: flex; justify-content: end;">
+    <a href="{% url 'community:update' community.pk %}" class="btn btn-outline-primary">수정</a>
+    <a href="{% url 'community:delete' community.pk %}" class="btn btn-outline-danger" style="margin-left: 5px;">삭제</a>
   </div>
   {% endif %}
 </div>
@@ -43,7 +41,7 @@
   {% if request.user.is_authenticated %}
     <form action="{% url 'community:comment_create' community.pk %}" method="POST">
       {% csrf_token %}
-      {{ comment_form }}
+      {% bootstrap_form comment_form %}
       <input type="submit">
     </form>
   {% else %}
