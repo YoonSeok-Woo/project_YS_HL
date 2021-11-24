@@ -27,7 +27,10 @@ def random(request):
 @require_http_methods(['GET','POST'])
 def detail(request,pk):
     movie = get_object_or_404(Movie,pk=pk)
-    genres = movie.genres
+    genres = movie.genres.all()
+    print(genres)
+    for genre in genres:
+        print(genre.name)
     context = {
         'movie':movie,
         'genres':genres
