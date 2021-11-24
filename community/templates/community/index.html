@@ -2,13 +2,25 @@
 
 {% block content %}
   <h1>커뮤니티</h1><br>
-  {% for community in communities %}
-    <p>작성자 : {{ community.user }}</p>
-    <p>글 번호 : {{ community.pk }}</p>
-    <p>글 제목 : {{ community.title }}</p>
-    <p>글 내용 : {{ community.content }}</p>
-    <hr>
-    <a href="{% url 'community:detail' community.pk %}">자세히보기</a>
-  {% endfor %}
-    <a href="{% url 'community:create' %}">새 글 작성</a>
+  <table class="table row m-0">
+    <thead class="col-12 thead-dark">
+      <tr class="row w-100 m-0">
+        <th class="col-1 text-center p-1">#</th>
+        <th class="col-7 col-md-8 p-1">제목</th>
+        <th class="col-4 col-md-3 p-1 text-center">작성자</th>
+      </tr>
+    </thead>
+    <tbody class="col-12">
+      {% for community in communities %}
+      <tr class="row m-0" onclick="location.href='{% url 'community:detail' community.pk %}'" style="cursor:pointer;">
+        <th class="col-1 p-1 text-center">{{ community.pk }}</th>
+        <td class="col-7 col-md-8 p-1 text-truncate" colspan="2">{{ community.title }}</td>
+        <td class="col-4 col-md-3 p-1 text-center text-truncate">{{ community.user }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end"> 
+    <a href="{% url 'community:create' %}" class="btn btn-primary">새 글 작성</a>
+  </div>
 {% endblock content %}

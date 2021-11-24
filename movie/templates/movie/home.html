@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="col-12 col-lg-10">
+  <div class="row mt-5 m-0" style="width: 100%;">
   {% for movie in movies %}
-    <p>영화 번호 : {{ movie.id }}</p>
-    <p>영화 제목 : {{ movie.title }}</p>
-    <p>영화 내용 : {{ movie.overview }}</p>
-    <p>영화 평점 : {{ movie.average_rate }}</p>
-    <a href="{% url 'movie:detail' movie.pk %}">자세히 보기</a>
-    <hr>
+  <div class="d-flex justify-content-center">
+    <a href="{% url 'movie:detail' movie.pk %}" class="imageDiv h-100 col-6 col-md-4 mb-4 card h-100 position-relative">
+      <img src="{{ movie.poster_path }}" alt="">
+    </a>
+  </div>
   {% endfor %}
+  </div>
+</div>
 {% endblock content %}
