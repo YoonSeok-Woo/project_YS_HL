@@ -27,8 +27,10 @@ def random(request):
 @require_http_methods(['GET','POST'])
 def detail(request,pk):
     movie = get_object_or_404(Movie,pk=pk)
+    genres = movie.genres
     context = {
-        'movie':movie
+        'movie':movie,
+        'genres':genres
     }
     return render(request, 'movie/detail.html',context)
 
