@@ -7,9 +7,11 @@
     <a class="text-dark custom-break-word"><small>작성자: {{ community.user }}</small></a>
   </div>
   <hr>
+  {% if community.image %}
   <img src="{{ community.image.url }}" alt="">
   <br>
   <br>
+  {% endif %}
   <pre class="custom-break-word">{{ community.content }}</pre>
   <hr>
     <div style="display: flex; justify-content: end;"><small>작성:{{ community.created_at }}</small></div>
