@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
   <h1 class="text-center">새 글 작성</h1>
-  <form action="" method="POST">
+  <form style="my-5" action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     <input type="submit">
   </form>
   <hr>
