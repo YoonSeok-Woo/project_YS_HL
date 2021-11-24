@@ -8,7 +8,7 @@
       <div class="col-12 col-md-9 text-dark">
         <h3 class="mt-3 custom-break-word">{{ movie.title }}</h3>
         {% for genre in genres %}
-        <a href="{% url 'movie:genre_movies' genre.pk %}"><div class="custom-break-word">{{ genre.name }}</div></a>
+        <a href="{% url 'movie:genre_movies' genre.pk %}"><div class="btn btn-light btn-sm">{{ genre.name }}</div></a>
         {% endfor %}
         <hr>
         <div class="custom-break-word">{{ movie.overview }}</div>
