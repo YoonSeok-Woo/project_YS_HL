@@ -11,17 +11,18 @@ from .forms import CommunityForm, CommentForm
 
 @require_http_methods(['GET','POST'])
 def index(request):
-    communities = Community.objects.all()
+    communities = Community.objects.order_by('-id')
     context = {
         'communities': communities
     }
     return render(request,'community/index.html',context)
 
-@require_http_methods(['GET','POST'])
+#@require_http_methods(['GET','POST'])
 def create(request):
     if request.user.is_authenticated:
         if request.method=='POST':
-            form = CommunityForm(request.POST)
+            form = CommunityForm(request.POST,request.FILES)
+            print(request.FILES)
             if form.is_valid():
                 community = form.save(commit = False)
                 community.user=request.user
@@ -47,13 +48,14 @@ def detail(request, commu_pk):
     }
     return render(request,'community/detail.html',context)
 
-@require_http_methods(['GET','POST'])
+#@require_http_methods(['GET','POST'])
 def update(request, commu_pk):
     community = get_object_or_404(Community,pk=commu_pk)
     if request.user.is_authenticated:
         if request.user==community.user:
             if request.method=='POST':
-                form = CommunityForm(request.POST,instance=community)
+                form = CommunityForm(request.POST,request.FILES,instance=community)
+                print(request.FILES)
                 if form.is_valid():
                     form.save()
                     return redirect('community:detail',community.pk)
