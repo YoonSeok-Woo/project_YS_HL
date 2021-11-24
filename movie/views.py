@@ -106,19 +106,23 @@ def genre_movies(request,pk):
     }
     return render(request, 'movie/genre_list.html', context)
 
-
 @require_http_methods(['GET','POST'])
 def search(request):
-    if request.method=='POST':
-        searchword = request.POST.get('searchword')
-        movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
-        paginator = Paginator(movies,5)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
-        context = {
-            'movies': movies,
-            'posts': posts,
-        }
-        return render(request, 'movie/searchbar.html',context)
-    return render(request, 'movie/search.html')
+    #searchword = json.loads(request.body).get('search')
+    
+    return render(request, 'movie/searchbar.html')
         
+def searchword(request,searchword):
+    
+    movies = Movie.objects.filter(Q(title__icontains=searchword)|Q(overview__icontains=searchword))
+    data = []
+    for movie in movies:
+        print(movie.genres)
+        data.append({
+            'pk':movie.pk,
+            'title':movie.title,
+            'overview':movie.overview,
+            'posterpath':movie.poster_path,
+            'average_rate':movie.average_rate,
+        })
+    return JsonResponse({'data':data}, json_dumps_params={'ensure_ascii':False},status=200)

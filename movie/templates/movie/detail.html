@@ -27,18 +27,13 @@
         
         const URL = `http://127.0.0.1:8000/movie/${event.target.dataset.id}/rating/`
         const rates_el = document.querySelector('#rating-form > select')
-        //console.dir(rates_el)
         const rates = rates_el.value
-        //console.log('----')
-        //console.log(rates)
-        //console.log('----')
-        //console.log(URL)
         const userData = {
         'rates': rates
-      }
-      const headers = {
-        headers: {'X-CSRFToken': csrftoken}
-      }
+        }
+        const headers = {
+          headers: {'X-CSRFToken': csrftoken}
+        }
 
         axios.post(URL, userData, headers)
         .then(function (response) {
@@ -46,7 +41,6 @@
           const score = response.data.score
           const average_rate = response.data.average_rate
           console.log(score)
-          // console.log(average_rate)
           const averageRate = document.querySelector('#average-rate')
           console.log(averageRate)
           averageRate.innerText = `영화 평점 :${score}`
