@@ -15,13 +15,9 @@
     <div><small>수정:{{ community.updated_at }}</small></div>
   </div>
   {% if user == community.user %}
-  <div class="text-right">
-    <form action="{% url 'community:delete' community.pk %}" method="POST">
-
+  <div>
       <a href="{% url 'community:update' community.pk %}" class="square_btn">수정</a>
-      {% csrf_token %}
-      <button type="submit" class="square_btn" value="삭제">삭제</button>
-    </form>
+      <a href="{% url 'community:delete' community.pk %}" class="square_btn">삭제</a>
   </div>
   {% endif %}
 </div>
@@ -32,7 +28,7 @@
   {% endif %}
   {% for comment in comments %}
     <div class="inblockclass">
-      <p style="display: inline-block">{{ comment.content }} &nbsp;</p> | <strong>{{ comment.user }}</strong> <a class="font-weight-light">&nbsp; {{ comment.created_at }}</a></p>
+      <p style="display: inline-block">{{ comment.content }} &nbsp;</p> | <strong>{{ comment.user }}</strong> <p class="font-weight-light">&nbsp; {{ comment.created_at }}</p></p>
       {% if request.user == comment.user %}
         <a href="{% url 'community:comment_delete' community.pk comment.pk %}" class="btn btn-danger">X</a>
       {% endif %}
