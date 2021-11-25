@@ -5,8 +5,8 @@
   <form style="my-5" action="" method="POST" enctype= "multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input type="submit">
+    <input type="submit" class="btn btn-primary">
   </form>
   <hr>
-  <a href="{% url 'community:index' %}">[back]</a>
+  <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">뒤로가기</a>
 {% endblock content %}

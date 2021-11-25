@@ -57,6 +57,6 @@
   {% else %}
     <a href="{% url 'user:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
   {% endif %}
-  <a href="{% url 'community:index' %}">[back]</a>
+  <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">뒤로가기</a>
   </div>
 {% endblock content %}
