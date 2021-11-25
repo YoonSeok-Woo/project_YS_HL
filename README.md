@@ -30,7 +30,7 @@
 
 팀장 : 윤홍림 - Front / Django, html, css
 
-팀원 : 우윤석 - Back / Django, Algorithm, JavaScript
+팀원 : 우윤석 - Back / Django, Algorithm, JavaScript, html
 
 
 
