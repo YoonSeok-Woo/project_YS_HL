@@ -2,8 +2,8 @@
 
 ```
 python update.py
-python manage.py loaddata genres.json
-python manage.py loaddata movie.json
+python manage.py loaddata ./movie/fixtures/genres.json
+python manage.py loaddata ./movie/fixtures/movie.json 
 ```
 
 
